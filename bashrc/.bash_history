@@ -1133,3 +1133,24 @@ pwd
 ls
 ls -l
 mv --help
+cd ~/.dotFiles/
+ls
+cd bashrc/
+ls
+cd .bashrc.d/
+ls
+cd ~/.bashrc.d/
+ls
+ls -l
+cd ..
+ls -l
+cd .config/nvim/
+ls -l
+cd lua/
+ls -l
+dnf search markdownlin-cli
+dnf search markdownlint-cli
+markdownlint
+.nvim
+.bash
+.nvim

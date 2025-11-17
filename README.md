@@ -4,7 +4,7 @@ https://www.youtube.com/watch?v=NoFiYOqnC4o&list=PLdfxSW8_GZP8LDoXn29HuCmHN_WwPQ
 
 
 create dir for "package":<br>
-``~/.dotfiles/package/`` <br>
+f.ex: ``~/.dotfiles/package/`` <br>
 then add the original path of the "package".<br>
 f.ex: ``~/.dotfiles/package/.config/package/someDotFile``<br>
 
@@ -14,7 +14,7 @@ nvim is located in ``~/.config/nvim`` so compelete path is<br>
 ``~/.dotfiles/nvim/.config/nvim/``<br>
 
 to execute the stow:<br>
-``mkdir -p ~/.dotfiles/nvim/.config/nvim`` <- create package+path<br>
-``mv ~/.config/nvim/* ~/.dotfiles/nvim/.config/nvim``<- move content to package<br>
-``cd ~/.dotfiles && stow nvim`` <- cd to dotfile folder and `stow <package>`<br>
+ create package+path: ``mkdir -p ~/.dotfiles/nvim/.config/nvim``  <br>
+ move content to package: ``mv ~/.config/nvim/* ~/.dotfiles/nvim/.config/nvim`` <br>
+cd to dotfile folder and `stow <package>`: ``cd ~/.dotfiles && stow nvim``  <br>
 

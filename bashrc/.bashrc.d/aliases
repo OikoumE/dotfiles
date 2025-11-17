@@ -3,12 +3,10 @@
 alias ls="ls -a"
 alias .bash="nvim ~/.bashrc.d/ && source ~/.bashrc && echo 'bashrc updated'"
 
-alias .nvim="cd ~/.config/nvim/ && nvim"
-
+alias .nvim="cd ~/.dotFiles/nvim/.config/nvim/ && nvim"
 
 
 # git
-
 alias .gitm="git add . && git commit -m "
 
 
