@@ -998,3 +998,138 @@ cd .config/
 ls
 cd ~/.config/
 ll
+stow
+sudo dnf install stow
+stow --help
+ls
+mkdir .dotFiles
+cd .dotFiles/
+ls
+mkdir nvim
+ls
+cd nvim/.config
+mkdir nvim/.config
+ls
+tree
+cd nvim/
+ls
+tree --help
+cd ..
+tree -a
+mc
+ls
+tree -a
+cd ~/.dotFiles/
+tree -a
+nvim
+stow nvim
+nvim
+ls
+cd nvim
+ls
+cd .config/
+ls
+mkdir nvim
+mv * nvim/
+mc
+cd ../..
+stow nvim
+nvim
+ghcreate public dotfiles
+git status
+ghcreate
+ls
+rm .git
+rm -r .git
+rm -r .git -y
+rm -rf .git
+rm .gitignore
+ls
+rm README.md 
+ghcreate dotfiles public
+ls
+cd nvim/
+ls
+cd .config/
+ls
+cd nvim/
+ls
+nvim
+cd .github/
+ls
+rm -rf .git
+.s
+ls
+cd ..
+rm -rf .git
+ls
+cd ../../..
+ls
+.gitm "added nvim"
+git status
+git push
+lazygit
+tree -a
+ls
+tree
+cd nvim
+cd ..
+git add nvim
+git status
+cat .gitignore 
+git ls-files
+git add nvim/.config/nvim/*
+ls
+cd nvim/.config/nvim/
+ls
+cd ../../..
+git rm --cached nvim/.config/nvim
+tree -a
+git config -f .git/config --remove-section submodule.nvim/.config/nvim
+cd .git
+ls
+git status
+cd ..
+git status
+.gitm "added nvim"
+git push
+cd nvim/.config/nvim/.github/
+tree -a
+nvim
+cd ~
+clear
+ls
+cd .dotFiles/
+ls
+mkdir bashrc/
+ls
+mv bashrc/ bashrc.d
+ls
+mv bashrc.d/ bashrc
+ls
+mc
+ls
+cd .dotFiles/
+ls
+clear
+ls ..
+stow bashrc
+ls ..
+ls -l ..
+mkdir ideavimrc
+mv ../.ideavimrc ideavimrc/
+ls ideavimrc/
+stow ideavimrc
+ls -l ..
+cd ../.config/
+ls
+cd Unknown\ Organization/
+ls
+cd ..
+cd terminator/
+ls
+cat config 
+pwd
+ls
+ls -l
+mv --help
