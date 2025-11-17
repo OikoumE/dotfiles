@@ -1,7 +1,7 @@
 # how to stow
 info:
 https://www.youtube.com/watch?v=NoFiYOqnC4o&list=PLdfxSW8_GZP8LDoXn29HuCmHN_WwPQa2S&index=20
-
+https://www.gnu.org/software/stow/
 
 create dir for "package":<br>
 f.ex: ``~/.dotfiles/package/`` <br>
