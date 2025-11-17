@@ -1,0 +1,23 @@
+[global_config]
+  inactive_color_offset = 0.5
+  inactive_bg_color_offset = 0.5
+[keybindings]
+  preferences_keybindings = ""
+[profiles]
+  [[default]]
+    background_darkness = 0.75
+    background_type = transparent
+    cursor_shape = ibeam
+    font = JetBrainsMono Nerd Font Mono 20
+    scrollback_lines = 1500
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]

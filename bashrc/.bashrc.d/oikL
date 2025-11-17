@@ -1,0 +1,19 @@
+#! /bin/bash
+alias .oikL=".buildOikL && .runOikL"
+# to define a target folder cd into folder and do "cmake .."
+alias .buildOikL="cmake --build build/ && echo ------------- BUILD DONE ------------- "
+alias .runOikL="./build/oikL"
+
+
+# Add the external repo as a remote
+#git remote add other-repo https://github.com/username/other-repo.git
+# Pull it into a subdirectory
+#git subtree add --prefix=external/other-repo other-repo main --squash
+
+
+#git subtree pull --prefix=external/other-repo other-repo main --squash
+#git subtree push --prefix=external/other-repo other-repo main
+
+alias .gitSubPull="git subtree pull --prefix=src/oikL oikL master --squash"
+alias .gitSubPush="git subtree push --prefix=src/oikL oikL master"
+

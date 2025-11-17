@@ -1,0 +1,22 @@
+#! /bin/bash
+
+
+
+# # Debug (gets *all* your flags)
+# cmake -B build/debug -DCMAKE_BUILD_TYPE=Debug
+# cmake --build build/debug
+#
+# # Release (no sanitizers, no -Werror, optimized)
+# cmake -B build/release -DCMAKE_BUILD_TYPE=Release
+# cmake --build build/release
+alias .craftDebug="cmake --build build/debug && echo ------------ BUILD DONE ------------ && .runCraft"
+alias .runCraft="./build/debug/CraftpixJam2"
+alias .craftRelease="cmake --build build/release && echo ------------ BUILD DONE ------------ && .runCraftRelease"
+alias .runCraftRelease="./build/release/CraftpixJam2"
+
+
+
+
+
+
+
