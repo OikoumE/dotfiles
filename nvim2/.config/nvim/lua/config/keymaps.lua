@@ -224,5 +224,4 @@ map("n", "<M-l>", "<cmd>BufferLineMoveNext<CR>", {desc = "Move BufferTab Right"}
 map("n", "<C-q>", "<cmd>bd<CR>", {desc = "Delete current BufferTab"})
 
 -- lua
-
 map({"n", "x"}, "<localleader>r", function() Snacks.debug.run() end, { desc = "Run Lua", ft = "lua" })

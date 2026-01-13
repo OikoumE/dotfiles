@@ -2,7 +2,7 @@ local opts = {
   win_opts = {
     width = 30,
     height = 1,
-    row = vim.o.lines - 4,
+    row = vim.o.lines - 2,
     col = vim.o.columns / 2 + 15,
     anchor = "NE",
     border = "single",
@@ -103,9 +103,38 @@ local function register_on_lazygit_close()
     end,
   })
 end
+local function create_aucmds(sk)
+  -- Hook into persistence.nvim events
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PersistenceLoadPre",
+    callback = function()
+      -- before session loads, turn off screenkey
+      if sk.turn_off then
+        sk.turn_off()
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PersistenceLoadPost",
+    callback = function()
+      -- after session loads, turn it back on
+      if sk.turn_on then
+        sk.turn_on()
+      end
+    end,
+  })
+  -- redraw screenkey on win/vimResize
+  vim.api.nvim_create_autocmd({ "VimResized", "WinResized" }, {
+    group = vim.api.nvim_create_augroup("ResizeSkreenKey", { clear = true }),
+    callback = function()
+      sk.redraw()
+    end,
+  })
+end
 return {
   "NStefan002/screenkey.nvim",
-  lazy = false,
+  event = "VeryLazy", -- or BufEnter or VeryLazy
+  -- lazy = false,
   opts = {},
   config = function()
     -- #toggle Screenkey
@@ -118,7 +147,6 @@ return {
     sk.setup(opts)
     sk.toggle()
     vim.keymap.set("n", "<leader>ts", require("screenkey").toggle, { desc = "[T]oggle [S]creenkey" })
-
-    --TODO: create AUGRUP for resize to repos the shit!
+    create_aucmds(sk)
   end,
 }

@@ -1,20 +1,21 @@
 #! /bin/bash
 ghcreate() {
-    if [ $# -lt 1 ]; then
-        echo "Usage: ghcreate <repo-name> [public|private]"
-        return 1
-    fi
-    local repo="$1"
-    local visibility="${2:-public}" #default to public
+  if [ $# -lt 1 ]; then
+    echo "Usage: ghcreate <repo-name> [public|private]"
+    return 1
+  fi
+  local repo="$1"
+  local visibility="${2:-public}" #default to public
 
-    #Init git if not 
-    if [ ! -d .git ]; then
-        git init
-        touch .gitignore && touch README.md
-        git add .
-        git commit -m "Initial commit"
-    fi
+  #Init git if not
+  if [ ! -d .git ]; then
+    git init
+    touch .gitignore && echo -e "/[Bb]uild/\n/[Bb]uilds/\n/.[Ee]nv\n/.cache/\n.cache/\n.cache/clangd/index\nbuild\n.cache\n" >>.gitignore
+    touch README.md && echo -e "#$repo\nREADME" >>README.md
+    git add .
+    git commit -m "Initial commit"
+  fi
 
-    #create git hub repo and push
-    gh repo create "$repo" --"$visibility" --source=. --remote=origin --push
+  #create git hub repo and push
+  gh repo create "$repo" --"$visibility" --source=. --remote=origin --push
 }
