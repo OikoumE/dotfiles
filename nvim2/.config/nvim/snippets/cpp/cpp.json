@@ -1,0 +1,36 @@
+{
+  "test": {
+    "prefix": "PIMPLclass.h",
+    "body": [
+      "#pragma once",
+      "",
+      "namespace ${1:NAMESPACE} {",
+      "class ${2:CLASS_NAME} {",
+      "  public:",
+      "    ${2:CLASS_NAME}();",
+      "    ~${2:CLASS_NAME}();",
+      "    void Update();",
+      "",
+      "  private:",
+      "    struct Impl;",
+      "    Impl *impl;",
+      "};",
+      "} // namespace ${1:NAMESPACE}"
+    ]
+  },
+  "test2": {
+    "prefix": "PIMPLclass.cpp",
+    "body": [
+      "",
+      "namespace ${1:NAMESPACE} {",
+      "struct ${2:CLASS_NAME}::Impl {",
+      "    void Update() const {",
+      "    }",
+      "};",
+      "${2:CLASS_NAME}::${2:CLASS_NAME}() : impl{new Impl()} {};",
+      "${2:CLASS_NAME}::~${2:CLASS_NAME}() { delete impl; };",
+      "void ${2:CLASS_NAME}::Update() { impl->Update(); }",
+      "} // namespace ${1:NAMESPACE}"
+    ]
+  }
+}
