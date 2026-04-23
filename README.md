@@ -33,3 +33,15 @@ cd to dotfile folder and `stow <package>`: ``cd ~/.dotfiles && stow nvim``  <br>
 ### to UNDO a stow:<br>
 
 cd to dotfile folder and `stow -D <package>`: ``cd ~/.dotfiles && stow -D nvim``  <br>
+
+example using stow to swap nvim configs:
+assume nvim and nvim2 as packages.
+
+navigate to folder: ``cd ~/.dotfiles``
+remove current: ``stow -D nvim``
+apply other: ``stow nvim2``
+open nvim to see change: ``nvim .``
+
+to revert back:
+remove current: ``stow -D nvim2``
+re-apply original: ``stow nvim``
