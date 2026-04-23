@@ -34,8 +34,11 @@ cd to dotfile folder and `stow <package>`: ``cd ~/.dotfiles && stow nvim``  <br>
 
 cd to dotfile folder and `stow -D <package>`: ``cd ~/.dotfiles && stow -D nvim``  <br>
 
-example using stow to swap nvim configs:
-assume nvim and nvim2 as packages.
+---
+
+#### example using stow to swap nvim configs
+
+assume ``nvim`` and ``nvim2`` as packages.
 
 navigate to folder: ``cd ~/.dotfiles``
 remove current: ``stow -D nvim``
