@@ -129,6 +129,7 @@ return {
           "Trait",
         },
       },
+      { import = "lazyvim.plugins.extras.lang.python" },
     },
   },
 }

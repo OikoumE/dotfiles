@@ -12,6 +12,12 @@ alias .runCraft="./build/debug/CraftpixJam2"
 alias .craftRelease="cmake --build build/release && echo ------------ BUILD DONE ------------ && .runCraftRelease"
 alias .runCraftRelease="./build/release/CraftpixJam2"
 
+alias .cdTwitch="cd ~/Extra/GitHubProjects/TwitchOverlayNative/"
+alias .buildTwitch=".cdTwitch && cmake --build build/"
+alias .runTwitch=".buildTwitch && ./build/TwitchOverlayNative"
+alias .exportCompileCommands="cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && cd .."
+alias .cleanBuildTwitch=".cdTwitch && rm -rf build/* && .exportCompileCommands && .runTwitch"
+
 # gives temp permission to write to usb over serial (is that correct?)
 # by granting read(4), write (2) (4+2=6) to all users (owner(1st digit), group(2nd digit) and others(3rd digit))
 alias .openUsb="read -n 1 -s -r -p 'Give full permission to ttyUSB0? press any key to continue, ctrl-c to cancel!' && sudo chmod 666 /dev/ttyUSB0"

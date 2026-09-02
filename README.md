@@ -48,3 +48,13 @@ open nvim to see change: ``nvim .``
 to revert back:
 remove current: ``stow -D nvim2``
 re-apply original: ``stow nvim``
+
+---
+to check if stow is currently active do:
+`stow -n -v 2 -R <package_name>`
+`-n` is "simulation mode" so its safe
+stow "folds trees" so you can check with `ls` if the folder is symlinked
+f.ex for nvim;
+`ls -l ~/.config/ | grep nvim`
+results (for me);
+`<date and stuff> nvim -> ../.dotFiles/nvim-lazy/.config/nvim`

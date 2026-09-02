@@ -85,8 +85,8 @@ map("x", "<", "<gv")
 map("x", ">", ">gv")
 
 -- commenting
-map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
-map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
+-- map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
+-- map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 -- lazy
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -131,6 +131,9 @@ end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+
+map("n", "<leader>ce", diagnostic_goto(true, "ERROR"), { desc = "Next [e]rror" })
+map("n", "<leader>cE", diagnostic_goto(false, "ERROR"), { desc = "Prev [E]rror" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
@@ -209,6 +212,8 @@ Snacks.toggle.zen():map("<leader>uz")
 -- map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 -- in lua/config/keymaps.lua (or a custom plugin file)
 -- remove LazyVim's default <leader><tab> mappings for tabpages
+vim.keymap.del("n", "<C-W><C-D>")
+vim.keymap.del("n", "<C-W>d")
 vim.keymap.del("n", "<leader><tab>l")
 vim.keymap.del("n", "<leader><tab>o")
 vim.keymap.del("n", "<leader><tab>f")

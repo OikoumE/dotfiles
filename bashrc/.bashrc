@@ -19,7 +19,7 @@ if [ -d ~/.bashrc.d ]; then
   for rc in ~/.bashrc.d/*; do
     if [ -f "$rc" ]; then
       . "$rc"
-      echo "sourced $rc"
+      # echo "sourced $rc"
     fi
   done
 fi

@@ -1,6 +1,7 @@
 [global_config]
   inactive_color_offset = 0.5
   inactive_bg_color_offset = 0.5
+  ask_before_closing = never
 [keybindings]
   layout_launcher = ""
   preferences_keybindings = ""
