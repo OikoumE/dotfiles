@@ -1,13 +1,62 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      setup = {
-        clangd = function(_, opts)
-          opts.capabilities.offsetEncoding = { "utf-16" }
-        end,
-      },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "folke/lazydev.nvim",
     },
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "clangd" },
+      })
+      local lspconfig = require("lspconfig")
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--compile-commands-dir=build",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--pch-storage=memory",
+          "--cross-file-rename",
+          "-j=4",
+        },
+        on_attach = function(client, bufnr)
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
+        end,
+        filetypes = { "c", "cpp", "objc", "objcpp" },
+        root_dir = require("lspconfig").util.root_pattern("compile_commands.json", ".git"),
+      })
+    end,
+
+    --   servers = {
+    --     clangd = {
+    --       cmd = {
+    --         "clangd",
+    --         "--background-index",
+    --         "--compile-commands-dir=build",
+    --         "--clang-tidy",
+    --         "--header-insertion=iwyu",
+    --         "--completion-style=detailed",
+    --         "--pch-storage=memory",
+    --         "--cross-file-rename",
+    --         "-j=4",
+    --       },
+    --     },
+    --   },
+    --   setup = {
+    --     clangd = function(_, opts)
+    --       opts.capabilities.offsetEncoding = { "utf-16" }
+    --     end,
+    --   },
+    -- },
   },
   -- {
   --   "seblj/roslyn.nvim",
