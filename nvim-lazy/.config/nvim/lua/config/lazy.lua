@@ -15,6 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.swapfile = false
 require("lazy").setup({
+  ui = { border = "rounded" },
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -54,3 +55,12 @@ require("lazy").setup({
     },
   },
 })
+
+-- vim.diagnostic.config({
+--   virtual_text = true,
+--   signs = true,
+--   underline = true,
+--   update_in_insert = true,
+--   severity_sort = true,
+--   float = { border = "rounded", source = true },
+-- })

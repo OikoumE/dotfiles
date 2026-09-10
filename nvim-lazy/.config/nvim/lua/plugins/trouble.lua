@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   "folke/trouble.nvim",
   -- opts will be merged with the parent spec
@@ -15,5 +18,8 @@ return {
         end,
       },
     },
+  },
+  keys = {
+    { "<leader>tx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics" },
   },
 }

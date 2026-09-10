@@ -1,26 +1,26 @@
 return {
-  "folke/snacks.nvim",
-  priority = 1000,
-  lazy = false,
+  "snacks.nvim",
+  -- priority = 1000,
+  -- lazy = false,
   opts = {
-    picker = {
-      enabled = true,
-      sources = {
-        files = { hidden = true, ignored = true },
-        grep = { hidden = true, ignored = true },
-        lsp_symbols = { workspace = true },
-        diagnostics = {
-          workspace = true,
-          -- needs_buf = false,
-          -- filter = { cwd = true },
-        },
-      },
-    },
-    notifier = { enabled = true, timeout = 3000 },
-    quickfile = { enabled = true },
-    scope = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
+    -- picker = {
+    --   enabled = true,
+    --   sources = {
+    --     files = { hidden = true, ignored = true },
+    --     grep = { hidden = true, ignored = true },
+    --     lsp_symbols = { workspace = true },
+    --     diagnostics = {
+    --       workspace = true,
+    --       -- needs_buf = false,
+    --       -- filter = { cwd = true },
+    --     },
+    --   },
+    -- },
+    -- notifier = { enabled = true, timeout = 3000 },
+    -- quickfile = { enabled = true },
+    -- scope = { enabled = true },
+    -- statuscolumn = { enabled = true },
+    -- words = { enabled = true },
     dashboard = {
       preset = {
         pick = function(cmd, opts)
