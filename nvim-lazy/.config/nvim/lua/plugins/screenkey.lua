@@ -5,7 +5,7 @@ local opts = {
     row = vim.o.lines - 2,
     col = vim.o.columns / 2 + 15,
     anchor = "NE",
-    border = "single",
+    border = "rounded",
     title = "",
     style = "minimal",
     -----
