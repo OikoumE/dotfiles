@@ -1,0 +1,43 @@
+#! /bin/bash
+epname() {
+  local preview=0
+  if [[ $1 == --preview || $1 == -p ]]; then
+    preview=1
+    shift
+  fi
+
+  if [[ $# -ne 3 || ! $2 =~ ^[0-9]+$ || ! $3 =~ ^[0-9]+$ ]]; then
+    cat <<'EOF'
+Usage: epname [--preview] "Show Name" SEASON FIRST_EPISODE
+
+Renames MakeMKV files (*_t00.mkv, *_t01.mkv, ...) in the current
+folder to "Show Name SxxEyy.mkv", numbered in order.
+
+Options:
+  -p, --preview   Show what would be renamed without changing anything
+
+Examples:
+  epname --preview "Twin Peaks" 1 1
+  epname "Twin Peaks" 1 5        # disc 2 starting at episode 5
+EOF
+    return 1
+  fi
+
+  local show=$1 season=$((10#$2)) n=$((10#$3))
+  local files=(*_t*.mkv)
+  if [[ ! -e ${files[0]} ]]; then
+    echo "epname: no *_t*.mkv files in $(pwd)" >&2
+    return 1
+  fi
+
+  local f new
+  for f in "${files[@]}"; do
+    new=$(printf '%s S%02dE%02d.mkv' "$show" "$season" "$n")
+    if ((preview)); then
+      echo "$f -> $new"
+    else
+      mv -n -v "$f" "$new"
+    fi
+    n=$((n + 1))
+  done
+}
