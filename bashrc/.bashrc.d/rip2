@@ -12,14 +12,14 @@ rip2() { # usage: rip [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds]
       shift
       ;;
     *)
-      echo "rip: unknown option $1"
+      echo "rip2: unknown option $1"
       return 1
       ;;
     esac
   done
   # check if $1 is empty
   if [[ -z $1 ]]; then
-    echo 'Usage: rip [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds, default 3600]'
+    echo 'Usage: rip2 [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds, default 3600]'
     echo '  default: rip only the longest title'
     echo '  --drive | -d:      ask which drive to use when several have a disc'
     echo '  --all   | -a:      rip every title longer than min_seconds'
@@ -76,7 +76,15 @@ rip2() { # usage: rip [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds]
   fi
 
   mkdir -p "$dir"
-  makemkvcon --progress=-same mkv disc:$disc "$title" "$dir" --minlength="$min" || return 1
+  makemkvcon -r --progress=-same mkv disc:$disc "$title" "$dir" --minlength="$min" |
+    awk -F'[:,]' '
+      $1 == "PRGV" { printf "\r\033[K Ripping: %d%% (total %d%%)", $2*100/$4, $3*100/$4; fflush() }
+      $1 == "MSG" {
+        if (match($0, /"[^"]*"/)) t = substr($0, RSTART+1, RLENGTH-2)
+        if (t !~ /therefore skipped|Region Setting|Calculated BUP/) printf "\r\033[K%s\n", t
+      }
+      END { print "" }'
+  ((PIPESTATUS[0] == 0)) || return 1
 
   local files=("$dir"/*_t*.mkv)
   if ((${#files[@]} == 1)) && [[ -e ${files[0]} ]]; then
