@@ -1,0 +1,93 @@
+#! /bin/bash
+rip2() { # usage: rip [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds]
+  local all=0 pick=0 disc model label drive choice
+  while [[ $1 == -* ]]; do
+    case "$1" in
+    --all | -a)
+      all=1
+      shift
+      ;;
+    --drive | -d)
+      pick=1
+      shift
+      ;;
+    *)
+      echo "rip: unknown option $1"
+      return 1
+      ;;
+    esac
+  done
+  # check if $1 is empty
+  if [[ -z $1 ]]; then
+    echo 'Usage: rip [--all|-a] [--drive|-d] "Movie Name (Year)" [min_seconds, default 3600]'
+    echo '  default: rip only the longest title'
+    echo '  --drive | -d:      ask which drive to use when several have a disc'
+    echo '  --all   | -a:      rip every title longer than min_seconds'
+    return 1
+  fi
+
+  local name=$1 min=${2:-3600}
+  local dir=~/Videos/Movies/"$name"
+  local title=all
+
+  # one entry per drive that has a disc: "num|model|disc name|device"
+  local -a opts
+  mapfile -t opts < <(makemkvcon -r info disc:9999 | awk -F, '
+    $1 ~ /^DRV:/ && $6 != "\"\"" {
+      sub(/^DRV:/, "", $1)
+      gsub(/"/, "", $5); gsub(/"/, "", $6); gsub(/"/, "", $7)
+      print $1 "|" $5 "|" $6 "|" $7
+    }')
+
+  choice=0
+  if ((${#opts[@]} == 0)); then
+    echo "rip: no disc found in any drive" >&2
+    return 1
+  elif ((${#opts[@]} > 1 && pick)); then
+    local i n
+    for i in "${!opts[@]}"; do
+      IFS='|' read -r n model label drive <<<"${opts[i]}"
+      echo "$((i + 1)): $label  ($model, $drive)"
+    done
+    read -rp "Which drive? " choice
+    if ! [[ $choice =~ ^[0-9]+$ ]] || ((choice < 1 || choice > ${#opts[@]})); then
+      echo "rip: invalid choice" >&2
+      return 1
+    fi
+    ((choice--))
+  fi
+  IFS='|' read -r disc model label drive <<<"${opts[choice]}"
+  echo "ripping '$label' from $model ($drive, disc:$disc)"
+
+  if ((!all)); then
+    echo "Scanning disc for the longest title..." >&2
+    title=$(makemkvcon -r info disc:$disc --minlength="$min" | awk -F, '
+      /^TINFO:/ && $2 == 9 {
+        id = substr($1, 7); d = $4; gsub(/"/, "", d)
+        n = split(d, t, ":"); s = t[n] + t[n-1]*60 + (n > 2 ? t[n-2]*3600 : 0)
+        if (s > max) { max = s; best = id }
+      }
+      END { if (best != "") print best }')
+    if [[ -z $title ]]; then
+      echo "rip: no title longer than $min seconds found"
+      return 1
+    fi
+    echo "Ripping title $title"
+  fi
+
+  mkdir -p "$dir"
+  makemkvcon --progress=-same mkv disc:$disc "$title" "$dir" --minlength="$min" || return 1
+
+  local files=("$dir"/*_t*.mkv)
+  if ((${#files[@]} == 1)) && [[ -e ${files[0]} ]]; then
+    mv -n "${files[0]}" "$dir/$name.mkv"
+  else
+    echo "rip: ${#files[@]} files ripped, rename manually in $dir"
+  fi
+
+  eject "$drive"
+}
+
+detect_drive() {
+  makemkvcon -r info disc:9999 | grep DRV | awk -F, '{print $1, $5, $6, $7}'
+}
